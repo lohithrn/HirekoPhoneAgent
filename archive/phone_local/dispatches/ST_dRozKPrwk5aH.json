@@ -1,0 +1,7 @@
+{
+  "name": "Default dispatch rule",
+  "trunk_ids": ["ST_dRozKPrwk5aH"],
+  "rule": {
+        "dispatchRuleIndividual": {}
+    }
+}
