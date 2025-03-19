@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -e  # Exit on any error
 set -x
 
 ###########################################
@@ -184,22 +183,3 @@ check_dependencies() {
     fi
 }
 
-set_environment_twilio_livekit_variables() {
-    echo "Setting environment variables... on ${TENANT_UPPER} ${STAGE_UPPER}"
-    # Set environment variables dynamically
-    env_variable_dependencies=("TWILIO_ACCOUNT_SID" "TWILIO_API_KEY" "TWILIO_API_SECRET" "TWILIO_PHONE_ID" "LIVEKIT_API_KEY" "LIVEKIT_API_SECRET" "LIVEKIT_SIP_URL" "LIVEKIT_URL")
-
-    for env_variable in "${env_variable_dependencies[@]}"; do
-        var_name="${TENANT_UPPER}_${STAGE_UPPER}_${env_variable}"
-
-        if [ -n "${!var_name}" ]; then
-            export "$env_variable=${!var_name}"
-        else
-            echo "Warning: Environment variable $var_name is not set."
-            exit 1
-        fi
-    done
-
-    export TWILIO_TRUNK_DOMAIN="${project_name}-trunk.pstn.twilio.com"
-    export TWILIO_TRUNK_FRIENDLY_NAME="${project_name} LiveKit Trunk"
-}

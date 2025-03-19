@@ -1,0 +1,5 @@
+#!/bin/bash
+set -x
+
+export getUserByUniqueSessionId="https://mnzkwlbmie.execute-api.us-west-2.amazonaws.com/prod/FreePlayGroundCallLogManagementService/stage/{stage}/tenant/{tenant}/getUserByUniqueSessionId/userSessionId/{userSessionId}"
+export getOrCreateUserCallDetails="https://mnzkwlbmie.execute-api.us-west-2.amazonaws.com/prod/FreePlayGroundCallLogManagementService/stage/{stage}/tenant/{tenant}/getOrCreateUserCallDetails/category/{category}/identity/{identity}"
