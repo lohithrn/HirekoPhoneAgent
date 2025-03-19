@@ -68,6 +68,29 @@ async def setup_livekit(return_twilio_data, livekit_api_key, livekit_api_secret,
                 )
             )
             dispatch = await livekit_api.sip.create_sip_dispatch_rule(request)
+
+
+        list_outbound_trunks = await livekit_api.sip.list_sip_outbound_trunk(api.ListSIPOutboundTrunkRequest())
+        print(f"List outbound trunks: {list_outbound_trunks}")
+        for trunk in list_outbound_trunks.items:
+            if trunk.name == f"{project_name} outbound trunk":
+                request = api.DeleteSIPTrunkRequest(
+                    sip_trunk_id=trunk.sip_trunk_id
+                )
+                await livekit_api.sip.delete_sip_trunk(request)
+        # Outbound trunk setup
+        request = api.CreateSIPOutboundTrunkRequest(
+            trunk=api.SIPOutboundTrunkInfo(
+                name=f"{project_name} outbound trunk",
+                address=return_twilio_data["trunk_domain"],
+                numbers=[return_twilio_data["phone_number"]],
+                auth_username=tenant_name,
+                auth_password=return_twilio_data["token_name"]
+            )
+        )
+        trunk = await livekit_api.sip.create_sip_outbound_trunk(request)
+        
+
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:

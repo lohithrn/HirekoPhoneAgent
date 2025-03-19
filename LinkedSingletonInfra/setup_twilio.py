@@ -62,12 +62,13 @@ def setup_twilio(twilio_account_sid, twilio_api_key, twilio_api_secret, twilio_p
      
     return {
         "trunk_sid": trunk.sid,
-        "trunk_domain": f"{trunk.domain_name}.pstn.twilio.com",
+        "trunk_domain": f"{trunk.domain_name}" if trunk.domain_name.endswith(".pstn.twilio.com") else f"{trunk.domain_name}.pstn.twilio.com",
         "trunk_url": trunk.url,
         "credential_list_sid": credential_list.sid,
         "credential_sid": credential.sid,
         "phone_number_sid": phone_number.sid,
-        "phone_number": phone_number.phone_number
+        "phone_number": phone_number.phone_number,
+        "token_name": token_name
     }
 
  
